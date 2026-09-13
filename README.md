@@ -345,4 +345,5 @@ just not implementing the feature.
 - Sharing a whole folder, not just single files
 #   N i m b u s - c l o u d  
  #   N i m b u s - c l o u d  
+ #   N i m b u s - c l o u d  
  
