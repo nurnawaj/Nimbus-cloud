@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shared file — Nimbus</title>
+<script>document.documentElement.setAttribute('data-theme', localStorage.getItem('nimbus_theme') || 'light');</script>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="share-shell">
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" style="position:fixed; top:20px; right:20px; color:var(--ink); border-color:var(--border);"></button>
+  <div class="share-card" id="share-card">
+    <div class="file-icon" id="share-icon" style="width:52px;height:52px;font-size:15px;">···</div>
+    <h2 id="share-name">Loading…</h2>
+    <div class="sub" id="share-meta"></div>
+    <div id="share-preview"></div>
+    <button class="btn-primary" id="share-download-btn" style="margin-top:18px;">Download</button>
+  </div>
+</div>
+
+<script src="/js/ui.js"></script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get("token");
+  const card = document.getElementById("share-card");
+  const nameEl = document.getElementById("share-name");
+  const metaEl = document.getElementById("share-meta");
+  const iconEl = document.getElementById("share-icon");
+  const previewEl = document.getElementById("share-preview");
+  const downloadBtn = document.getElementById("share-download-btn");
+
+  function formatBytes(bytes) {
+    if (bytes === 0) return "0 B";
+    const units = ["B", "KB", "MB", "GB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(1024));
+    return `${(bytes / Math.pow(1024, i)).toFixed(1)} ${units[i]}`;
+  }
+
+  async function loadShare() {
+    if (!token) {
+      nameEl.textContent = "No file specified.";
+      return;
+    }
+
+    try {
+      const res = await fetch(`/api/share/${token}`);
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "This link is invalid or has expired.");
+
+      nameEl.textContent = data.name;
+      metaEl.textContent = formatBytes(data.size);
+      iconEl.textContent = (data.name.split(".").pop() || "FILE").slice(0, 4).toUpperCase();
+
+      if (data.previewable && data.type && data.type.startsWith("image/")) {
+        previewEl.innerHTML = `<img src="/api/share/${token}/preview" alt="preview">`;
+      } else if (data.previewable && data.type === "application/pdf") {
+        previewEl.innerHTML = `<iframe src="/api/share/${token}/preview"></iframe>`;
+      }
+
+      downloadBtn.addEventListener("click", () => {
+        window.location.href = `/api/share/${token}/download`;
+      });
+    } catch (err) {
+      nameEl.textContent = err.message;
+      downloadBtn.style.display = "none";
+      iconEl.style.display = "none";
+    }
+  }
+
+  loadShare();
+</script>
+</body>
+</html>

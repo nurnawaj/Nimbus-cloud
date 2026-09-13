@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create account — Nimbus</title>
+<script>document.documentElement.setAttribute('data-theme', localStorage.getItem('nimbus_theme') || 'light');</script>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="auth-shell">
+  <div class="auth-panel">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+      <div class="brand-mark">Nimbus</div>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"></button>
+    </div>
+    <div class="pitch">
+      <h1>Set up your own private cloud drive in under a minute.</h1>
+      <p>Every account gets its own storage space, backed by MongoDB Atlas, protected behind a login only you know.</p>
+    </div>
+    <div class="fineprint">Final year project · built with Node.js, Express &amp; MongoDB Atlas</div>
+  </div>
+
+  <div class="auth-form-side">
+    <div class="auth-card">
+      <h2>Create your account</h2>
+      <p class="sub">Takes less than a minute.</p>
+
+      <div class="error-msg" id="error-box"></div>
+
+      <form id="register-form">
+        <div class="field">
+          <label for="name">Full name</label>
+          <input type="text" id="name" required autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" required autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" required minlength="6" autocomplete="new-password">
+        </div>
+        <button type="submit" class="btn-primary" id="submit-btn">Create account</button>
+      </form>
+
+      <div class="switch-line">Already have an account? <a href="/login.html">Log in</a></div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/ui.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/register.js"></script>
+</body>
+</html>

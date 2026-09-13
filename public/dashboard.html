@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Files — Nimbus</title>
+<script>document.documentElement.setAttribute('data-theme', localStorage.getItem('nimbus_theme') || 'light');</script>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:36px;">
+      <span class="brand-mark" style="margin-bottom:0;">Nimbus</span>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"></button>
+    </div>
+
+    <nav>
+      <div class="nav-item">My Files</div>
+    </nav>
+
+    <div class="storage-box">
+      <div class="label">Storage used</div>
+      <div class="storage-bar-track">
+        <div class="storage-bar-fill" id="storage-fill"></div>
+      </div>
+      <div class="amount" id="storage-amount">Loading…</div>
+    </div>
+
+    <button class="logout-btn" id="logout-btn">Log out</button>
+  </aside>
+
+  <main class="main">
+    <div class="main-header">
+      <div>
+        <h1>My Files</h1>
+        <div class="greeting" id="greeting"></div>
+      </div>
+      <div>
+        <input type="file" id="file-input">
+        <button class="upload-btn" id="upload-btn">Upload file</button>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <input type="text" class="search-input" id="search-input" placeholder="Search your files…">
+      <button class="secondary-btn" id="new-folder-btn">+ New folder</button>
+    </div>
+
+    <div class="breadcrumb" id="breadcrumb"></div>
+
+    <div class="dropzone" id="dropzone">
+      Drag and drop a file here, or use the Upload button above.
+    </div>
+
+    <div id="file-grid" class="file-grid"></div>
+  </main>
+</div>
+
+<!-- Preview modal -->
+<div class="modal-overlay" id="preview-modal">
+  <div class="modal-box modal-wide">
+    <div class="modal-header">
+      <h3 id="preview-name">File preview</h3>
+      <button class="modal-close" data-close="preview-modal">&times;</button>
+    </div>
+    <div class="preview-body" id="preview-body"></div>
+  </div>
+</div>
+
+<!-- Share modal -->
+<div class="modal-overlay" id="share-modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>Share file</h3>
+      <button class="modal-close" data-close="share-modal">&times;</button>
+    </div>
+    <div id="share-body">
+      <p class="sub" style="margin-top:0;">Anyone with this link can view and download this file — no account needed.</p>
+      <select class="expiry-select" id="expiry-select">
+        <option value="0">Link never expires</option>
+        <option value="1">Expires in 1 hour</option>
+        <option value="24">Expires in 24 hours</option>
+        <option value="168">Expires in 7 days</option>
+      </select>
+      <button class="btn-primary" id="generate-link-btn">Generate share link</button>
+      <div class="share-row" id="share-link-row" style="display:none; margin-top:16px;">
+        <input type="text" id="share-link-input" readonly>
+        <button class="secondary-btn" id="copy-link-btn">Copy</button>
+      </div>
+      <div class="modal-actions" id="revoke-row" style="display:none;">
+        <button class="secondary-btn" id="revoke-link-btn">Revoke link</button>
+      </div>
+      <div id="nfc-section" style="display:none; margin-top:18px; padding-top:18px; border-top:1px solid var(--border);">
+        <p class="sub" style="margin-top:0;">Write this link to a physical NFC tag — anyone who later taps their phone on that tag will have it open automatically, no app needed.</p>
+        <button class="secondary-btn" id="nfc-write-btn" style="width:100%;">📶 Write to NFC tag</button>
+        <div id="nfc-status" style="font-size:13px; color:var(--ink-soft); margin-top:10px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/ui.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/dashboard.js"></script>
+</body>
+</html>
