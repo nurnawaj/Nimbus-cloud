@@ -52,80 +52,9 @@ Built with **Node.js, Express.js, MongoDB Atlas, and GridFS**.
 
 ---
 
-## 🏗️ System Architecture
 
-┌───────────────────────────┐
-│         Browser           │
-│     HTML / CSS / JS       │
-└─────────────┬─────────────┘
-              │
-              │ HTTP Requests
-              │ JWT Authentication
-              ▼
-┌───────────────────────────┐
-│      Express Server       │
-│        Node.js            │
-├───────────────────────────┤
-│ Authentication Routes     │
-│ File Management Routes    │
-│ Folder Management Routes  │
-│ Public Sharing Routes     │
-└─────────────┬─────────────┘
-              │
-              ▼
-┌───────────────────────────┐
-│       MongoDB Atlas       │
-├───────────────────────────┤
-│ Users                     │
-│ uploads.files             │
-│ uploads.chunks            │
-│ Folders                   │
-└───────────────────────────┘
 
-📂 Project Structure
-
-cloud-drive/
-│
-├── server.js
-├── package.json
-├── vercel.json
-├── .env.example
-│
-├── api/
-│   └── index.js
-│
-├── config/
-│   └── db.js
-│
-├── models/
-│   ├── User.js
-│   └── Folder.js
-│
-├── middleware/
-│   └── auth.js
-│
-├── routes/
-│   ├── auth.js
-│   ├── files.js
-│   ├── folders.js
-│   └── share.js
-│
-└── public/
-    ├── login.html
-    ├── register.html
-    ├── dashboard.html
-    ├── share.html
-    │
-    ├── css/
-    │   └── style.css
-    │
-    └── js/
-        ├── auth.js
-        ├── login.js
-        ├── register.js
-        └── dashboard.js
-
-🔐 Authentication
+##🔐 Authentication
 
 Nimbus uses JWT (JSON Web Token) authentication.
 When a user registers:
@@ -144,25 +73,25 @@ Store JWT in Browser
      ↓
 Send JWT with Protected Requests
 
-💾 File Storage
+##💾 File Storage
 Nimbus uses MongoDB GridFS for file storage.
 Instead of using external storage services such as AWS S3 or Cloudinary, uploaded files are stored directly inside MongoDB Atlas.
 GridFS automatically divides large files into smaller chunks.
 
-⚙️ Installation
+##⚙️ Installation
 
 git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
 cd cloud-drive
 npm install
-⚙️ Configuration & Run
+##⚙️ Configuration & Run
 1. Clone the Repository
 git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
 cd cloud-drive
 
-2. Install Dependencies
+##2. Install Dependencies
 npm install
 
-3. Create the Environment File
+##3. Create the Environment File
 Create a .env file in the project root:
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
@@ -177,10 +106,8 @@ Copy the generated value and put it in:
 JWT_SECRET=your_generated_secret
 
 
-⚠️ Never upload your real .env file to GitHub.
 
-
-4. Configure MongoDB Atlas
+##4. Configure MongoDB Atlas
 
 Create a MongoDB Atlas account.
 Create a free M0 cluster.
